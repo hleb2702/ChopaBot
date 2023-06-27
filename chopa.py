@@ -37,7 +37,7 @@ def main():
                     jjss = dumps({'peer_id': peer2,
                                    'conversation_message_ids': [msg],
                                    'is_reply': True})
-                return s('messages.send', {'random_id': 0, 'peer_id':peer2, 'message':txt, 'forward':jss})
+                return s('messages.send', {'random_id': 0, 'peer_id':peer2, 'message':txt, 'forward':jjss})
 
             def trigger(txt):
                 a = ['http', 'vk.com', 'vk.cc', 'vk.me', 't.me', '.com', '.onion', '.ru', '.by', '.wb']
