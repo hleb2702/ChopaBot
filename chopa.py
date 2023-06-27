@@ -2,6 +2,7 @@ from sqlite3 import connect
 from random import randint as r, choice
 from traceback import format_exc
 from time import sleep
+from json import dumps
 
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api import VkApi
@@ -32,7 +33,10 @@ def main():
                     peer2 = peer3
                 else:
                     peer2 = peer
-                jss = None
+                if rep:
+                    jjss = dumps({'peer_id': peer2,
+                                   'conversation_message_ids': [msg],
+                                   'is_reply': True})
                 return s('messages.send', {'random_id': 0, 'peer_id':peer2, 'message':txt, 'forward':jss})
 
             def trigger(txt):
@@ -46,7 +50,7 @@ def main():
             for event in VkBotLongPoll(ss, group).listen():
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     info = event.object.message
-                    id, peer, txt_txt = info['from_id'], info['peer_id'], info['text']
+                    id, peer, txt_txt, msg = info['from_id'], info['peer_id'], info['text'], info['conversation_message_id']
                     text = txt_txt.split()
                     text.append('')
                     txt = text[0].lower()
