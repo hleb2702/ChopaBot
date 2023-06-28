@@ -8,6 +8,7 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api import VkApi
 
 from config import token, group, STICKERS
+from anekdotpars import anekdot, list_type
 
 def main():
     ss = VkApi(token=token)
@@ -84,6 +85,7 @@ def main():
 !т - тех поддержка чопы
 !б - краткая инфа о беседе
 !д - поддержать чопу
+!а - рандомный анекдот
 
 👨‍💻Для администраторов:
 !ш от 10-70 - установить вероятность с какой бот будет отвечать (по стандарту 35)
@@ -125,6 +127,12 @@ def main():
 
                     elif txt == '!т':
                         send('По вопросам: @neatboy\nНашли баг: @idd2702')
+
+                    elif txt == '!а':
+                        try:
+                            send(anekdot(list_type()))
+                        except:
+                            send(anekdot(list_type()))
 
                     elif txt == '!у':
                         if id not in admins:
