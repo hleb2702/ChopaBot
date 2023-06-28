@@ -133,6 +133,7 @@ def main():
                             send(anekdot(list_type()))
                         except:
                             send(anekdot(list_type()))
+                        continue
 
                     elif txt == '!у':
                         if id not in admins:
