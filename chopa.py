@@ -7,7 +7,7 @@ from json import dumps
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api import VkApi
 
-from config import token, group
+from config import token, group, STICKERS
 
 def main():
     ss = VkApi(token=token)
@@ -28,7 +28,7 @@ def main():
                 c.execute(f'UPDATE chat SET shans = {shans}, words = "{words}" WHERE peer = {peer}')
                 db.commit()
 
-            def send(txt, peer3=None, rep=True):
+            def send(txt=None, peer3=None, rep=True, stick=None):
                 if peer3 is not None:
                     peer2 = peer3
                 else:
@@ -37,7 +37,8 @@ def main():
                     jjss = dumps({'peer_id': peer2,
                                    'conversation_message_ids': [msg],
                                    'is_reply': True})
-                return s('messages.send', {'random_id': 0, 'peer_id':peer2, 'message':txt, 'forward':jjss})
+                return s('messages.send', {'random_id': 0, 'peer_id':peer2, 'message':txt, 
+                                           'forward':jjss, 'sticker_id':stick, 'disable_mentions':1})
 
             def trigger(txt):
                 a = ['http', 'vk.com', 'vk.cc', 'vk.me', 't.me', '.com', '.onion', '.ru', '.by', '.wb']
@@ -143,6 +144,8 @@ def main():
                     elif txt_txt not in words and not trigger(txt_txt) and len(txt_txt) > 2:
                         words.append(txt_txt)
 
+                    if r(0, 100) > 5:
+                        send(stick=choice(STICKERS))
                     if r(1, 100) <= shans:
                         send(choice(words))
 
