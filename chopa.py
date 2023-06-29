@@ -153,9 +153,9 @@ def main():
                     elif txt_txt not in words and not trigger(txt_txt) and len(txt_txt) > 2:
                         words.append(txt_txt)
 
-                    if r(0, 100) > 5:
+                    if r(0, 100) < 5:
                         send(stick=choice(STICKERS))
-                    if r(1, 100) <= shans:
+                    elif r(1, 100) <= shans:
                         send(choice(words))
 
                     end()
