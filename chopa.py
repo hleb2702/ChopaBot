@@ -105,7 +105,7 @@ def main():
                         else:
                             send('вы не админ')
 
-                    elif txt == '!о':
+                    elif txt == '!ш':
                         if id in admins:
                             try:
                                 shans = int(text[1])
